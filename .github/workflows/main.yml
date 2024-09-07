@@ -31,14 +31,8 @@ jobs:
       run: npm run build
 
     # 第五步，使用 SSH 部署项目到服务器
-    # - name: Deploy to server via SSH
-    #   uses: appleboy/ssh-action@v0.1.7
-    #   with:
-    #     host: ${{ secrets.SSH_HOST }}         # 服务器IP地址，存储在 GitHub Secrets 中
-    #     username: ${{ secrets.SSH_USER }}     # 服务器用户名，存储在 GitHub Secrets 中
-    #     key: ${{ secrets.SSH_PRIVATE_KEY }}   # SSH私钥，存储在 GitHub Secrets 中
-    #     port: 22                             # SSH端口（默认22）
-    #     script: |
-    #       cd /path/to/your/project            # 服务器上的项目目录
-    #       rm -rf *                            # 清空旧文件（根据需求修改）
-    #       cp -r ./dist/* .                    # 将新的构建文件复制到项目目录
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}  # GitHub 自动提供的 token
+        publish_dir: ./dist  # 生成的静态文件目录，根据你的项目情况修改
